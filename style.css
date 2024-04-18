@@ -13,6 +13,23 @@ header {
   position: relative; /* Needed for positioning the dropdowns relative to this container */
 }
 
+/* Estilo para o input de número */
+input[type=number] {
+  width: 200px; /* largura desejada */
+  padding: 10px; /* espaçamento interno */
+  border: 1px solid #ccc; /* borda */
+  border-radius: 5px; /* arredondamento da borda */
+  outline: none; /* remove o contorno quando focado */
+  font-size: 16px; /* tamanho da fonte */
+}
+
+/* Estilo para quando o input está focado */
+input[type=number]:focus {
+  border-color: #007bff; /* cor da borda quando focado */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* sombra quando focado */
+}
+
+
 .dropdown-button {
   background-color: #333;
   color: white;
@@ -21,6 +38,20 @@ header {
   cursor: pointer;
   margin-left: 2em;
   margin-right: 2em;
+}
+
+.submit {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+#submit-button {
+  justify-content: center;
+  display: flex;
 }
 
 .dropdown-content {
@@ -37,5 +68,9 @@ header {
 .dropdown-content label {
     display: block;
     margin-bottom: 8px;
-  }
-  
+}
+
+#category{
+  max-height: 260%;
+  overflow-y: auto;
+}
