@@ -1,57 +1,71 @@
 header {
-  background-color: #333;
-  color: white;
-  padding: 1em;
-  text-align: center;
-}
-
-#filters {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1em;
-  margin-top: 2em;
-  position: relative; /* Needed for positioning the dropdowns relative to this container */
-}
-
-/* Estilo para o input de número */
-input[type=number] {
-  width: 200px; /* largura desejada */
-  padding: 10px; /* espaçamento interno */
-  border: 1px solid #ccc; /* borda */
-  border-radius: 5px; /* arredondamento da borda */
-  outline: none; /* remove o contorno quando focado */
-  font-size: 16px; /* tamanho da fonte */
-}
-
-/* Estilo para quando o input está focado */
-input[type=number]:focus {
-  border-color: #007bff; /* cor da borda quando focado */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* sombra quando focado */
-}
-
-
-.dropdown-button {
-  background-color: #333;
-  color: white;
-  padding: 1em;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 2em;
-  margin-right: 2em;
-}
-
-.submit {
     background-color: #333;
     color: white;
     padding: 1em;
     text-align: center;
-    cursor: pointer;
-    text-align: center;
 }
 
-#submit-button {
-  justify-content: center;
-  display: flex;
+#filter {
+    display: flex;
+    justify-content: center;
+    margin: 5em;
+    position: relative;
+}
+
+#filter button {
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    /* duração da transição */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    /* sombra */
+}
+
+#filter button:hover {
+    background-color: #333;
+    color: white;
+}
+
+button {
+    height: 120%;
+    width: 50%;
+}
+
+input[type=number] {
+    width: 50%;
+    height: 120%;
+    padding: 10px;
+    border: 3px solid #333;
+    box-shadow: 0 0 2px rgba(#333, 0.5);
+    border-radius: 5px;
+    outline: none;
+    font-size: 25px;
+
+}
+
+input[type=number]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.dropdown-button {
+    font-family: 'Aladin';
+    background-color: #12c52ae1;
+    color: #990070;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 2em;
+    margin-right: 2em;
+    border-radius: 10px;
+}
+
+.submit {
+    background-color: #12c52ae1;
+    color: #990070;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    text-align: center;
 }
 
 .dropdown-content {
@@ -59,18 +73,24 @@ input[type=number]:focus {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
-    top: calc(100% + 5px); /* Adjust the distance from the button as needed */
-  }
-  
-.dropdown-content label {
-    display: block;
+    top: calc(100% + 5px);
+    /* Adjust the distance from the button as needed */
+}
+
+#question-type label {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 8px;
 }
 
-#category{
-  max-height: 260%;
-  overflow-y: auto;
+#category {
+    max-height: 260%;
+    overflow-y: auto;
+}
+
+#category label {
+    display: flex;
 }
