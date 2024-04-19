@@ -21,21 +21,26 @@ body {
 }
 
 #filter button {
+    font-family: 'Aladin';
+    font-size: 22px;
+    letter-spacing: 2px;
+    background-color: #009929;
+    color: #f5f649;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 2em;
+    margin-right: 2em;
     border-radius: 10px;
     transition-duration: 0.4s;
-    /* duração da transição */
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    /* sombra */
+    height: 120%;
+    width: 50%;
 }
 
 #filter button:hover {
     background-color: #333;
     color: white;
-}
-
-button {
-    height: 120%;
-    width: 50%;
 }
 
 input[type=number] {
@@ -57,24 +62,10 @@ input[type=number]:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-#filter button {
-    font-family: 'Aladin';
-    font-size: 22px;
-    letter-spacing: 2px;
-    background-color: #12c52ae1;
-    color: #990070;
-    padding: 1em;
-    text-align: center;
-    cursor: pointer;
-    margin-left: 2em;
-    margin-right: 2em;
-    border-radius: 10px;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
-    background: linear-gradient(180deg, #e9c1f3, #ac36f0);
+    background: linear-gradient(180deg, #d8ff7d, #f7fa3e);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;

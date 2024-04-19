@@ -1,9 +1,11 @@
 function submitFilters() {
     const url = "https://opentdb.com/api.php?";
 
+    /* Get the number of questions */
     const inputElement = document.getElementById('limit');
     const questionNumber = inputElement.value;
 
+    /* Get the selected categories */
     const categoryCheckboxes = document.querySelectorAll('#category input[type="checkbox"]');
     const selectedCategories = [];
 
@@ -13,6 +15,7 @@ function submitFilters() {
         }
     });
 
+    /* Get the selected difficulty */
     const difficultyRadios = document.querySelectorAll('#difficulty input[type="radio"]');
     var selectedDifficulty = null;
 
@@ -22,6 +25,7 @@ function submitFilters() {
         }
     });
 
+    /* Get the selected question types */
     const typeCheckboxes = document.querySelectorAll('#question-type input[type="checkbox"]');
     const selectedTypes = [];
 
@@ -31,17 +35,15 @@ function submitFilters() {
         }
     });
 
+    /* Validate the number of questions */
     if (questionNumber < 3)
         questionNumber = 3;
 
-    if (questionNumber > 20)
-        questionNumber = 20;
+    if (questionNumber > 30)
+        questionNumber = 30;
 
-    console.log("Question number: " + questionNumber);
-    console.log("Selected categories: " + selectedCategories);
-    console.log("Selected difficulty: " + selectedDifficulty);
-    console.log("Selected types: " + selectedTypes);
 
+    /* Calculate the number of questions per category */
     var questionsPerCategory;
     var leftoverQuestions;
     if (selectedCategories.length > 0) {
@@ -49,54 +51,47 @@ function submitFilters() {
         leftoverQuestions = questionNumber % selectedCategories.length;
     }
 
-    console.log("Questions per category: " + questionsPerCategory);
-    console.log("Leftover questions: " + leftoverQuestions);
+    /* Create the URLs */
 
+    /* arranges the difficulty and type parameters */
     var difficulty = '';
     if (selectedDifficulty != null) {
         difficulty = `&difficulty=${selectedDifficulty}`;
     }
 
+    /* if both or neither types are selected, the type parameter is not added, since it will pick both for both cases */
     var type = '';
     if (selectedTypes.length == 1) {
         type = `&type=${selectedTypes[0]}`;
     }
 
+    /* if no categories are selected, the URL will have only the amount, difficulty and type parameters */
+    var urls = [];
     if (selectedCategories.length == 0) {
-        fetch(`${url}amount=${questionNumber}${difficulty}${type}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao fazer a solicitação: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Houve um erro:', error);
-            });
-    } else {
+        urls.push(`${url}amount=${questionNumber}${difficulty}${type}`);
+    } else { /* if categories are selected, the URLs will each have their divided amount, difficulty, type and category parameters */
         selectedCategories.forEach(category => {
-            console.log('caralho');
             if (category == selectedCategories[selectedCategories.length - 1]) {
                 questionsPerCategory += leftoverQuestions;
             }
-            fetch(`${url}amount=${questionsPerCategory}${difficulty}${type}&category=${category}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao fazer a solicitação: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error('Houve um erro:', error);
-                });
+            urls.push(`${url}amount=${questionsPerCategory}${difficulty}${type}&category=${category}`);
         });
     }
 
+    /* Fetch the first batch of questions */
+    fetch(urls[0])
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao fazer a solicitação: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            /* Create the quiz */
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Houve um erro:', error);
+        });
 
 }

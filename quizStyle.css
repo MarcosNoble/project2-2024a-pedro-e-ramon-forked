@@ -1,0 +1,14 @@
+header {
+    background-color: #005A31;
+    color: white;
+    padding: 1em;
+    text-align: center;
+    font-family: 'Aladin';
+    letter-spacing: 4px;
+    font-size: 40px;
+    height: 3em;
+}
+
+body {
+    background-color: #F3FAB6;
+}
