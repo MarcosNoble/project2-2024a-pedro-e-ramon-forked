@@ -31,12 +31,26 @@ function submitFilters() {
         }
     });
 
+    if (questionNumber < 3)
+        questionNumber = 3;
+
+    if (questionNumber > 20)
+        questionNumber = 20;
+
+    console.log("Question number: " + questionNumber);
+    console.log("Selected categories: " + selectedCategories);
+    console.log("Selected difficulty: " + selectedDifficulty);
+    console.log("Selected types: " + selectedTypes);
+
     var questionsPerCategory;
     var leftoverQuestions;
-    if (selectedCategories.len > 0) {
-        questionsPerCategory = questionNumber / selectedCategories.length;
+    if (selectedCategories.length > 0) {
+        questionsPerCategory = Math.floor(questionNumber / selectedCategories.length);
         leftoverQuestions = questionNumber % selectedCategories.length;
     }
+
+    console.log("Questions per category: " + questionsPerCategory);
+    console.log("Leftover questions: " + leftoverQuestions);
 
     var difficulty = '';
     if (selectedDifficulty != null) {
@@ -64,6 +78,7 @@ function submitFilters() {
             });
     } else {
         selectedCategories.forEach(category => {
+            console.log('caralho');
             if (category == selectedCategories[selectedCategories.length - 1]) {
                 questionsPerCategory += leftoverQuestions;
             }

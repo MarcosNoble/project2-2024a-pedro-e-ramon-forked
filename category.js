@@ -56,20 +56,17 @@ function capitalize(str) {
 function limitarSelecoesMaximas() {
     const checkboxes = document.querySelectorAll('#category input[type="checkbox"]');
     const maxCategorias = 3; // Defina o número máximo de seleções permitidas
-    console.log(checkboxes);
 
     let selecoesAtuais = 0;
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             if (this.checked) {
-                console.log(checkbox.value + " foi marcado");
                 selecoesAtuais++;
                 if (selecoesAtuais > maxCategorias) {
                     this.checked = false;
                     selecoesAtuais--;
                 }
             } else {
-                console.log(checkbox.value + " foi desmarcado");
                 selecoesAtuais--;
             }
         });
