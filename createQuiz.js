@@ -1,3 +1,5 @@
+const urls = [];
+
 function submitFilters() {
     const url = "https://opentdb.com/api.php?";
 
@@ -36,6 +38,9 @@ function submitFilters() {
     });
 
     /* Validate the number of questions */
+    if(questionNumber == null)
+        return;
+
     if (questionNumber < 3)
         questionNumber = 3;
 
@@ -66,7 +71,7 @@ function submitFilters() {
     }
 
     /* if no categories are selected, the URL will have only the amount, difficulty and type parameters */
-    var urls = [];
+
     if (selectedCategories.length == 0) {
         urls.push(`${url}amount=${questionNumber}${difficulty}${type}`);
     } else { /* if categories are selected, the URLs will each have their divided amount, difficulty, type and category parameters */
@@ -78,20 +83,9 @@ function submitFilters() {
         });
     }
 
-    /* Fetch the first batch of questions */
-    fetch(urls[0])
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a solicitação: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            /* Create the quiz */
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Houve um erro:', error);
-        });
+    window.location.href = "quiz.html";
+
 
 }
+
+export default submitFilters;
