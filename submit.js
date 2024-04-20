@@ -1,11 +1,11 @@
-export const urls = [];
+const urls = [];
 
 function submitFilters() {
     const url = "https://opentdb.com/api.php?";
 
     /* Get the number of questions */
     const inputElement = document.getElementById('limit');
-    const questionNumber = inputElement.value;
+    var questionNumber = inputElement.value;
 
     /* Get the selected categories */
     const categoryCheckboxes = document.querySelectorAll('#category input[type="checkbox"]');
@@ -38,7 +38,7 @@ function submitFilters() {
     });
 
     /* Validate the number of questions */
-    if(questionNumber == null)
+    if (questionNumber == null)
         return;
 
     if (questionNumber < 3)
@@ -82,18 +82,9 @@ function submitFilters() {
             urls.push(`${url}amount=${questionsPerCategory}${difficulty}${type}&category=${category}`);
         });
     }
+    // Converter o vetor em JSON e salvá-lo na memória local
+    localStorage.setItem('urls-fetch', JSON.stringify(urls));
 
-    //window.location.href = "quiz.html";
-    console.log(urls);
-
+    window.location.href = "quiz.html";
 
 }
-
-var button = document.getElementById("botao-submit");
-button.addEventListener("click", submitFilters);
-
-
-
-
-
-
