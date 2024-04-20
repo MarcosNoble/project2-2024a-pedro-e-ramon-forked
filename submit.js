@@ -1,4 +1,4 @@
-const urls = [];
+export const urls = [];
 
 function submitFilters() {
     const url = "https://opentdb.com/api.php?";
@@ -83,9 +83,17 @@ function submitFilters() {
         });
     }
 
-    window.location.href = "quiz.html";
+    //window.location.href = "quiz.html";
+    console.log(urls);
 
 
 }
 
-export default submitFilters;
+var button = document.getElementById("botao-submit");
+button.addEventListener("click", submitFilters);
+
+
+
+
+
+
