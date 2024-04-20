@@ -1,8 +1,7 @@
 // Suponha que `jsonData` seja a variável que armazena o JSON retornado de um fetch
 const jsonData = {
     "response_code": 0,
-    "results": [
-        {
+    "results": [{
             "type": "multiple",
             "difficulty": "medium",
             "category": "Geography",
@@ -70,31 +69,31 @@ const questions = [];
 
 // Percorra o array de questões
 jsonData.results.forEach(result => {
-  // Crie um objeto de questão para cada questão
-  const question = {
-      type: result.type,
-      difficulty: result.difficulty,
-      category: result.category,
-      questionText: result.question,
-      // Combine as opções de resposta corretas e incorretas em um array
-      options: [result.correct_answer, ...result.incorrect_answers],
-      correctAnswer: result.correct_answer
-  };
+    // Crie um objeto de questão para cada questão
+    const question = {
+        type: result.type,
+        difficulty: result.difficulty,
+        category: result.category,
+        questionText: result.question,
+        // Combine as opções de resposta corretas e incorretas em um array
+        options: [result.correct_answer, ...result.incorrect_answers],
+        correctAnswer: result.correct_answer
+    };
 
-  // Embaralhe as opções de resposta para que a resposta correta não seja sempre a primeira
-  question.options = shuffleArray(question.options);
+    // Embaralhe as opções de resposta para que a resposta correta não seja sempre a primeira
+    question.options = shuffleArray(question.options);
 
-  // Adicione o objeto de questão ao array de questões
-  questions.push(question);
+    // Adicione o objeto de questão ao array de questões
+    questions.push(question);
 });
 
 // Função para embaralhar um array (no caso, as opções de resposta)
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 // Agora você tem um array de objetos de questão pronto para ser usado no seu aplicativo
@@ -105,51 +104,88 @@ let currentQuestionIndex = 0; // Índice da pergunta atual sendo exibida
 
 // Função para renderizar uma página com uma única pergunta e suas alternativas
 function renderQuestionPage() {
-  // Obtenha a pergunta atual com base no índice atual
-  const currentQuestion = questions[currentQuestionIndex];
+    // Obtenha a pergunta atual com base no índice atual
+    const currentQuestion = questions[currentQuestionIndex];
 
-  // Crie uma div para conter a pergunta e suas alternativas
-  const questionContainer = document.createElement('div');
+    // Crie uma div para conter a pergunta e suas alternativas
+    const questionContainer = document.createElement('div');
 
-  // Adicione a pergunta como um elemento de texto à div da pergunta
-  const questionText = document.createElement('p');
-  questionText.textContent = currentQuestion.questionText;
-  questionContainer.appendChild(questionText);
+    // Adicione a pergunta como um elemento de texto à div da pergunta
+    const questionText = document.createElement('p');
+    questionText.textContent = currentQuestion.questionText;
 
-  // Adicione as alternativas como botões à div da pergunta
-  currentQuestion.options.forEach(option => {
-      const optionButton = document.createElement('button');
-      optionButton.textContent = option;
-      optionButton.addEventListener('click', () => {
-          // Lógica para verificar se a opção selecionada é a correta ou não
-          if (option === currentQuestion.correctAnswer) {
-              // Resposta correta
-              alert('Resposta correta!');
-          } else {
-              // Resposta incorreta
-              alert('Resposta incorreta!');
-          }
+    const textContainer = document.createElement('div');
+    textContainer.appendChild(questionText);
+    textContainer.classList.add('text-container');
 
-          // Avance para a próxima pergunta
-          currentQuestionIndex++;
-          // Verifique se ainda há perguntas a serem exibidas
-          if (currentQuestionIndex < questions.length) {
-              // Renderize a próxima pergunta
-              renderQuestionPage();
-          } else {
-              // Se não houver mais perguntas, exiba uma mensagem de conclusão
-              alert('Você concluiu o quiz!');
-          }
-      });
-      questionContainer.appendChild(optionButton);
-  });
+    questionContainer.appendChild(textContainer);
 
-  // Adicione a div da pergunta à página
-  document.body.innerHTML = ''; // Limpa o conteúdo anterior da página
-  document.body.appendChild(questionContainer);
+    const buttonsContainer = document.createElement('div');
+    const buttonRowContainer = document.createElement('div');
+    const buttonRow2Container = document.createElement('div');
+    var buttonsPerRow;
+
+    if (currentQuestion.type === "multiple") {
+        buttonsPerRow = 2;
+    } else {
+        buttonsPerRow = 1;
+    }
+
+    let buttonsInRow = 0;
+
+    // Adicione as alternativas como botões à div da pergunta
+    currentQuestion.options.forEach(option => {
+        const optionButton = document.createElement('button');
+        optionButton.textContent = option;
+        optionButton.addEventListener('click', () => {
+            // Lógica para verificar se a opção selecionada é a correta ou não
+            if (option === currentQuestion.correctAnswer) {
+                // Resposta correta
+                alert('Resposta correta!');
+            } else {
+                // Resposta incorreta
+                alert('Resposta incorreta!');
+            }
+
+            // Avance para a próxima pergunta
+            currentQuestionIndex++;
+            // Verifique se ainda há perguntas a serem exibidas
+            if (currentQuestionIndex < questions.length) {
+                // Renderize a próxima pergunta
+                renderQuestionPage();
+            } else {
+                // Se não houver mais perguntas, exiba uma mensagem de conclusão
+                alert('Você concluiu o quiz!');
+            }
+        });
+
+        if (buttonsInRow < buttonsPerRow - 1) {
+            buttonRowContainer.appendChild(optionButton);
+            buttonsInRow++;
+        } else {
+            buttonRow2Container.appendChild(optionButton);
+            buttonsInRow = 0;
+        }
+    });
+
+    buttonsContainer.appendChild(buttonRowContainer);
+    buttonsContainer.appendChild(buttonRow2Container);
+    questionContainer.appendChild(buttonsContainer);
+
+    buttonsContainer.classList.add('buttons-container');
+    buttonRowContainer.classList.add('button-row-container');
+    buttonRow2Container.classList.add('button-row-container');
+
+    // Adicione a div da pergunta à página
+
+    // Limpa o conteúdo anterior da página
+    const elementsToRemove = document.querySelectorAll('body > :not(header)');
+    elementsToRemove.forEach(element => {
+        element.remove();
+    });
+
+    document.body.appendChild(questionContainer);
 }
 
 // Renderize a primeira pergunta ao carregar a página
 renderQuestionPage();
-
-
