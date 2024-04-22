@@ -62,6 +62,8 @@ function correct(category) {
     else {
         resultadosPorCategoria[category].acertos++;
     }
+
+    paintButtons();
 }
 
 // Função para registrar um erro em uma categoria específica
@@ -72,7 +74,28 @@ function incorrect(category) {
     else {
         resultadosPorCategoria[category].erros++;
     }
+
+    paintButtons();
 }
+
+function paintButtons() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.style.backgroundColor = 'red';
+        button.style.borderWidth = '2px'; // Set border width
+        button.style.borderStyle = 'solid'; // Set border style
+        
+        if (button.textContent === questions[currentQuestionIndex].correctAnswer) {
+            button.style.backgroundColor = 'blue';
+            button.style.borderColor = 'green'; // Set border color for correct answer
+            button.style.borderRadius = '50%'; // Round border for correct answer
+        } else {
+            button.style.borderColor = 'red'; // Set border color for incorrect answer
+        }
+    });
+}
+
+
 
 var questions = [];
 // Função para renderizar uma página com uma única pergunta e suas alternativas
@@ -135,23 +158,25 @@ async function renderQuestionPage() {
                 incorrect(questions[currentQuestionIndex].category);
             }
 
-            // Avance para a próxima pergunta
-            currentQuestionIndex++;
-            // Verifique se ainda há perguntas a serem exibidas
-            if (currentQuestionIndex < questions.length) {
-                // Renderize a próxima pergunta
-                renderQuestionPage();
-            } else {
-                currentQuestionIndex = 0;
-                if (urlsIdx < vetorSalvo.length)
+            setTimeout(() => {
+                // Avance para a próxima pergunta
+                currentQuestionIndex++;
+                // Verifique se ainda há perguntas a serem exibidas
+                if (currentQuestionIndex < questions.length) {
+                    // Renderize a próxima pergunta
                     renderQuestionPage();
-                else {
-                    console.log('Fim das perguntas!');
-                    console.log(resultadosPorCategoria);
-                    localStorage.setItem('resultados', JSON.stringify(resultadosPorCategoria));
-                    window.location.href = 'results.html';
+                } else {
+                    currentQuestionIndex = 0;
+                    if (urlsIdx < vetorSalvo.length)
+                        renderQuestionPage();
+                    else {
+                        console.log('Fim das perguntas!');
+                        console.log(resultadosPorCategoria);
+                        localStorage.setItem('resultados', JSON.stringify(resultadosPorCategoria));
+                        window.location.href = 'results.html';
+                    }
                 }
-            }
+            }, 1000);
         });
 
         if (buttonsInRow < buttonsPerRow - 1) {
