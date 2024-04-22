@@ -2,9 +2,8 @@ var urlsIdx = 0;
 // Recuperar o vetor da memória local e converter de volta para um vetor JavaScript
 const vetorSalvo = JSON.parse(localStorage.getItem('urls-fetch'));
 
-console.log(vetorSalvo);
+const selectedCategories = JSON.parse(localStorage.getItem('nameSelectedCategories'));
 
-// import the urls variable from submit.js
 
 async function getQuestions() {
     var questions = [];
@@ -23,8 +22,8 @@ async function getQuestions() {
                 difficulty: result.difficulty,
                 category: result.category,
                 questionText: decodeHTMLEntities(result.question),
-                options: [result.correct_answer, ...result.incorrect_answers],
-                correctAnswer: result.correct_answer
+                options: [result.correct_answer, ...result.incorrect_answers].map(decodeHTMLEntities),
+                correctAnswer: decodeHTMLEntities(result.correct_answer)
             };
             question.options = shuffleArray(question.options);
             questions.push(question);
@@ -47,8 +46,30 @@ function shuffleArray(array) {
 }
 
 var currentQuestionIndex = 0; // Índice da pergunta atual sendo exibida
-var questions;
+// Objeto para armazenar os resultados por categoria
+var resultadosPorCategoria = {};
 
+// Função para registrar um acerto em uma categoria específica
+function correct(category) {
+    if (!resultadosPorCategoria[category]) {
+        resultadosPorCategoria[category] = { acertos: 1, erros: 0 };
+    } 
+    else {
+        resultadosPorCategoria[category].acertos++;
+    }
+}
+
+// Função para registrar um erro em uma categoria específica
+function incorrect(category) {
+    if (!resultadosPorCategoria[category]) {
+        resultadosPorCategoria[category] = { acertos: 0, erros: 1 };
+    } 
+    else {
+        resultadosPorCategoria[category].erros++;
+    }
+}
+
+var questions = [];
 // Função para renderizar uma página com uma única pergunta e suas alternativas
 async function renderQuestionPage() {
 
@@ -57,7 +78,13 @@ async function renderQuestionPage() {
         questions = await getQuestions();
     }
 
-    console.log(questions);
+    const category = document.getElementById('category');
+
+    category.textContent = `${selectedCategories[urlsIdx - 1]}`;
+
+    const idx = document.getElementById('idx');
+
+    idx.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
 
     // Obtenha a pergunta atual com base no índice atual
     const currentQuestion = questions[currentQuestionIndex];
@@ -96,10 +123,11 @@ async function renderQuestionPage() {
             // Lógica para verificar se a opção selecionada é a correta ou não
             if (option === currentQuestion.correctAnswer) {
                 // Resposta correta
-                alert('Resposta correta!');
-            } else {
+                correct(selectedCategories[urlsIdx - 1]);
+            } 
+            else {
                 // Resposta incorreta
-                alert('Resposta incorreta!');
+                incorrect(selectedCategories[urlsIdx - 1]);
             }
 
             // Avance para a próxima pergunta
@@ -114,7 +142,9 @@ async function renderQuestionPage() {
                     renderQuestionPage();
                 else {
                     console.log('Fim das perguntas!');
-                    // printe dos resultados
+                    console.log(resultadosPorCategoria);
+                    localStorage.setItem('resultados', JSON.stringify(resultadosPorCategoria));
+                    window.location.href = 'results.html';
                 }
             }
         });

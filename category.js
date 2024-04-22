@@ -31,6 +31,7 @@ fetch(`${url}`)
 
             input.type = 'checkbox';
             input.value = categoria.id;
+            input.name = categoria.name;
 
             label.appendChild(span);
             label.appendChild(input);

@@ -10,12 +10,25 @@ function submitFilters() {
     /* Get the selected categories */
     const categoryCheckboxes = document.querySelectorAll('#category input[type="checkbox"]');
     const selectedCategories = [];
+    const nameSelectedCategories = [];
 
     categoryCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
             selectedCategories.push(checkbox.value);
+            
+            // Verifica se checkbox.name começa com "Entertainment:" ou "Science:"
+            if (checkbox.name.startsWith("Entertainment:") || checkbox.name.startsWith("Science:")) {
+                // Pega o resto da string após "Entertainment:" ou "Science:"
+                const restOfString = checkbox.name.substring(checkbox.name.indexOf(":") + 1).trim();
+                nameSelectedCategories.push(restOfString);
+            } 
+            else {
+                // Se não começar com "Entertainment:" ou "Science:", adiciona o nome como está
+                nameSelectedCategories.push(checkbox.name);
+            }
         }
     });
+    
 
     /* Get the selected difficulty */
     const difficultyRadios = document.querySelectorAll('#difficulty input[type="radio"]');
@@ -41,11 +54,11 @@ function submitFilters() {
     if (questionNumber == null)
         return;
 
-    if (questionNumber < 3)
-        questionNumber = 3;
+    if (questionNumber < 10)
+        questionNumber = 10;
 
-    if (questionNumber > 30)
-        questionNumber = 30;
+    if (questionNumber > 40)
+        questionNumber = 40;
 
 
     /* Calculate the number of questions per category */
@@ -74,7 +87,8 @@ function submitFilters() {
 
     if (selectedCategories.length == 0) {
         urls.push(`${url}amount=${questionNumber}${difficulty}${type}`);
-    } else { /* if categories are selected, the URLs will each have their divided amount, difficulty, type and category parameters */
+    } 
+    else { /* if categories are selected, the URLs will each have their divided amount, difficulty, type and category parameters */
         selectedCategories.forEach(category => {
             if (category == selectedCategories[selectedCategories.length - 1]) {
                 questionsPerCategory += leftoverQuestions;
@@ -84,6 +98,7 @@ function submitFilters() {
     }
     // Converter o vetor em JSON e salvá-lo na memória local
     localStorage.setItem('urls-fetch', JSON.stringify(urls));
+    localStorage.setItem('nameSelectedCategories', JSON.stringify(nameSelectedCategories));
 
     window.location.href = "quiz.html";
 

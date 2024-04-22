@@ -1,0 +1,74 @@
+:root {
+    --abacate: #F3FAB6;
+    --abacate-escuro: #005A31;
+    --font: 'Aladin';
+}
+body {
+    background-color: var(--abacate);
+}
+header {
+    background-color: var(--abacate-escuro);
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    font-family: var(--font);
+    letter-spacing: 4px;
+    font-size: 40px;
+}
+::marker{
+    color: var(--abacate-escuro);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5em;
+    
+}
+
+#resultados-container {
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 20px solid #333;
+    border-style: double;
+    border-radius: 10px;
+    box-shadow: 1em 1em var(--abacate-escuro);
+
+    
+    font-family: var(--font);
+    letter-spacing: 2px;
+}
+
+#resultados-totais h2 {
+    font-size: 40px;
+}
+
+#resultados {
+    font-size:25px;
+}
+
+
+
+.reset-bt {
+    font-family: var(--font);
+    font-size: 22px;
+    letter-spacing: 2px;
+    background-color: #009929;
+    color: #f5f649;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 2em;
+    margin-right: 2em;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    height: 120%;
+    width: 50%;
+}
+
+.reset-bt:hover {
+    background-color: #333;
+    color: white;
+}
