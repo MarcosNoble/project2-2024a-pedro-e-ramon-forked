@@ -7,7 +7,8 @@ Acesso: https://elc1090.github.io/project2-2024a-pedro-e-ramon/
 
 
 ### Desenvolvedores
-Pedro Henrique da Silva Hinerasky - Ciência da Computação
+Pedro Henrique da Silva Hinerasky 
+&
 Ramon Godoy Izidoro - Ciência da Computação
 
 ### Nosso produto
