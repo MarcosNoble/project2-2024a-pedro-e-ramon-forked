@@ -2,8 +2,6 @@ var urlsIdx = 0;
 // Recuperar o vetor da memória local e converter de volta para um vetor JavaScript
 const vetorSalvo = JSON.parse(localStorage.getItem('urls-fetch'));
 
-const selectedCategories = JSON.parse(localStorage.getItem('nameSelectedCategories'));
-
 
 async function getQuestions() {
     var questions = [];
@@ -20,11 +18,18 @@ async function getQuestions() {
             const question = {
                 type: result.type,
                 difficulty: result.difficulty,
-                category: result.category,
+                category: decodeHTMLEntities(result.category),
                 questionText: decodeHTMLEntities(result.question),
                 options: [result.correct_answer, ...result.incorrect_answers].map(decodeHTMLEntities),
                 correctAnswer: decodeHTMLEntities(result.correct_answer)
             };
+
+            let categoryName = question.category;
+            if (categoryName.startsWith("Entertainment:") || categoryName.startsWith("Science:"))
+            {
+                question.category = categoryName.substring(categoryName.indexOf(":") + 1).trim();
+            }
+
             question.options = shuffleArray(question.options);
             questions.push(question);
         });
@@ -80,7 +85,7 @@ async function renderQuestionPage() {
 
     const category = document.getElementById('category');
 
-    category.textContent = `${selectedCategories[urlsIdx - 1]}`;
+    category.textContent = questions[currentQuestionIndex].category;
 
     const idx = document.getElementById('idx');
 
@@ -123,11 +128,11 @@ async function renderQuestionPage() {
             // Lógica para verificar se a opção selecionada é a correta ou não
             if (option === currentQuestion.correctAnswer) {
                 // Resposta correta
-                correct(selectedCategories[urlsIdx - 1]);
+                correct(questions[currentQuestionIndex].category);
             } 
             else {
                 // Resposta incorreta
-                incorrect(selectedCategories[urlsIdx - 1]);
+                incorrect(questions[currentQuestionIndex].category);
             }
 
             // Avance para a próxima pergunta

@@ -10,22 +10,10 @@ function submitFilters() {
     /* Get the selected categories */
     const categoryCheckboxes = document.querySelectorAll('#category input[type="checkbox"]');
     const selectedCategories = [];
-    const nameSelectedCategories = [];
 
     categoryCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
             selectedCategories.push(checkbox.value);
-            
-            // Verifica se checkbox.name começa com "Entertainment:" ou "Science:"
-            if (checkbox.name.startsWith("Entertainment:") || checkbox.name.startsWith("Science:")) {
-                // Pega o resto da string após "Entertainment:" ou "Science:"
-                const restOfString = checkbox.name.substring(checkbox.name.indexOf(":") + 1).trim();
-                nameSelectedCategories.push(restOfString);
-            } 
-            else {
-                // Se não começar com "Entertainment:" ou "Science:", adiciona o nome como está
-                nameSelectedCategories.push(checkbox.name);
-            }
         }
     });
     
@@ -98,7 +86,6 @@ function submitFilters() {
     }
     // Converter o vetor em JSON e salvá-lo na memória local
     localStorage.setItem('urls-fetch', JSON.stringify(urls));
-    localStorage.setItem('nameSelectedCategories', JSON.stringify(nameSelectedCategories));
 
     window.location.href = "quiz.html";
 
