@@ -30,7 +30,8 @@ Após terminar a etapa de filtro do projeto, iniciamos a etapa de criação do q
 - HTML básico
 - CSS básico
 - JavaScript
-- Alguns elementos de Boostrap
+- Alguns componentes de Boostrap
+- Fonte Personalizada do GoogleApis
 
 #### Ambiente de desenvolvimento
 
@@ -40,12 +41,20 @@ Após terminar a etapa de filtro do projeto, iniciamos a etapa de criação do q
 
 #### Referências e créditos
 
-Substitua este trecho por uma lista bem detalhada de todo material consultado para ajudar no projeto, por exemplo:  URL de templates usados, URL de icon kits usados, créditos para colegas que colaboraram, geradores de código (incluindo alguns prompts usados para o ChatGPT, se for o caso)
-- ...
-- ...
+Utilizamos diversos materiais de consulta dentre eles se destacam:
 
+- https://www.w3schools.com/css/css_border.asp
+- https://getbootstrap.com/docs/5.3/components/spinners/
+- https://youtu.be/-cX5jnQgqSM?si=2WWRixkI0Ba-LFUM
+- https://www.w3schools.com/css/css_units.asp
 
+Além claro de vários prompts usados para o ChatGPT, onde buscamos encontrar bugs e resolvê-los ou simplesmente aprender como é a sintaxe em javascript de algo já conhecido:
 
+- como utilizar map em javascript
+- como somar todas os valores de uma chave dentro de um dicionario
+- pode me explicar como é medido 1em?
+- como utilizar corretamente as funcoes asyn e await?
+- tenho um arquivo .js que exporta uma funcao, como acessar ela no html?
 
 ---
 Projeto entregue para a disciplina de [Desenvolvimento de Software para a Web](http://github.com/andreainfufsm/elc1090-2024a) em 2024a
