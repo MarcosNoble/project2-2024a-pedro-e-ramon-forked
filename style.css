@@ -37,6 +37,7 @@ body {
     width: 50%;
 }
 
+
 #filter button:hover {
     background-color: #333;
     color: white;
@@ -86,4 +87,36 @@ input[type=number]:focus {
 
 #category label {
     display: flex;
+}
+
+#selected-options {
+    font-family: 'Aladin';
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #F3FAB6; /* Match button text color */
+    border: 2px solid transparent; /* Match button border */
+    border-radius: 5px; /* Match button border radius */
+    padding: 10px; /* Add padding for spacing */
+    margin: 10px auto; /* Center the box horizontally */
+    width: fit-content; /* Adjust width to fit content */
+}
+
+h3{
+    font-family: 'Aladin';
+    font-size: 22px;
+    letter-spacing: 2px;
+    background-color: #009929;
+    color: #f5f649;
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 2em;
+    margin-right: 2em;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    height: 120%;
+    margin: 10px auto; /* Center the box horizontally */
+    width: fit-content; /* Adjust width to fit content */
+
 }

@@ -1,6 +1,13 @@
 function toggleDropdown(id) {
     const dropdown = document.getElementById(id);
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    const isDisplayed = dropdown.style.display === "block";
+    
+    dropdown.style.display = isDisplayed ? "none" : "block";
+
+    // Update selected options when dropdown is closed
+    if (isDisplayed) {
+        updateSelectedOptions();
+    }
 }
 
 // Define o endpoint da API
@@ -72,4 +79,26 @@ function limitarSelecoesMaximas() {
             }
         });
     });
+}
+
+function updateSelectedOptions() {
+    const selectedCategories = document.querySelectorAll('#category input[type="checkbox"]:checked');
+    const optionsBox = document.getElementById('selected-options');
+
+    // Clear previous selections
+    optionsBox.innerHTML = '';
+
+    if (selectedCategories.length === 0) {
+        const noSelection = document.createElement('p');
+        noSelection.textContent = 'No categories selected.';
+        optionsBox.appendChild(noSelection);
+    } else {
+        const selectionList = document.createElement('ul');
+        selectedCategories.forEach(category => {
+            const listItem = document.createElement('li');
+            listItem.textContent = category.name;
+            selectionList.appendChild(listItem);
+        });
+        optionsBox.appendChild(selectionList);
+    }
 }
